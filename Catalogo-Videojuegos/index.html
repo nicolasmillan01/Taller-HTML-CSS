@@ -6,6 +6,156 @@
   <title>Pixelario — Catálogo de Videojuegos</title>
   <meta name="description" content="Pixelario: catálogo curado de videojuegos por género, plataforma y año.">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #16121f;
+      --bg-elev: #211a2e;
+      --bg-elev-2: #2b2240;
+      --amber: #ffb400;
+      --coral: #ff5d5d;
+      --teal: #43d9ad;
+      --violet: #9d7bff;
+      --cyan: #4fd1ff;
+      --rose: #ff8fab;
+      --ink: #f2ede6;
+      --ink-dim: #b9aec7;
+      --line: #392f4a;
+
+      --font-display: "Space Grotesk", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --font-pixel: "Press Start 2P", monospace;
+
+      --pico-font-family: var(--font-display);
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    body { max-width: 1100px; }
+    body > * { max-width: 1100px; margin-inline: auto; }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+    a { color: var(--amber); }
+
+    .badge {
+      font-family: var(--font-pixel);
+      font-size: 0.55rem;
+      letter-spacing: 0.05em;
+      color: var(--bg);
+      background: var(--amber);
+      padding: 0.35rem 0.55rem;
+      display: inline-block;
+    }
+
+    /* ---------- Header ---------- */
+    header.site {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    header.site .logo {
+      font-family: var(--font-pixel);
+      font-size: 0.9rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    header.site .logo span { color: var(--amber); }
+    header.site nav ul { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+    header.site nav a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-dim);
+      text-decoration: none;
+    }
+    header.site nav a:hover, header.site nav a[aria-current="page"] { color: var(--amber); }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 4rem 0 3rem; }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      max-width: 16ch;
+      margin: 0.75rem 0 1rem;
+    }
+    .hero p.lead { max-width: 52ch; color: var(--ink-dim); font-size: 1.05rem; }
+
+    /* ---------- Filtros (visual, no funcional) ---------- */
+    .genre-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 2rem 0 3rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-dim);
+    }
+    .genre-key span { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .genre-key i { width: 10px; height: 10px; display: inline-block; }
+
+    /* ---------- Catálogo: tarjetas tipo cartucho ---------- */
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+    .cartridge {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .cartridge .cover { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--bg-elev-2); }
+    .cartridge .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cartridge .row { display: flex; flex: 1; }
+    .cartridge .spine { width: 8px; flex-shrink: 0; }
+    .cartridge .body { padding: 1.25rem 1.4rem; flex: 1; }
+    .cartridge .meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-dim);
+      margin-bottom: 0.5rem;
+    }
+    .cartridge h3 { font-size: 1.15rem; margin: 0 0 0.4rem; }
+    .cartridge p { color: var(--ink-dim); font-size: 0.9rem; margin: 0; }
+    .cartridge .tags { margin-top: 0.85rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .cartridge .tags span {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      padding: 0.15rem 0.5rem;
+    }
+
+    .spine.accion { background: var(--coral); }
+    .spine.deportes { background: var(--teal); }
+    .spine.battle-royale { background: var(--amber); }
+    .spine.shooter { background: var(--violet); }
+    .spine.estrategia { background: var(--cyan); }
+    .spine.simulacion { background: var(--rose); }
+
+    /* ---------- Footer ---------- */
+    footer.site {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--ink-dim);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    footer.site a { color: var(--ink-dim); }
+    footer.site a:hover { color: var(--amber); }
+  </style>
 </head>
 <body>
 
